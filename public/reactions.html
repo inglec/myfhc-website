@@ -13,24 +13,21 @@
     <img src='images/header.webp' width='100%'>
     <!-- Navbar -->
     <nav class='navbar navbar-expand-lg navbar-dark bg-dark'>
-        <a class='navbar-brand' href='#'>MYFH Crew</a>
+        <a class='navbar-brand' href='index.html'>MYFH Crew</a>
         <button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#main-navbar' aria-controls='main-navbar' aria-expanded='false' aria-label='Toggle navigation'>
             <span class='navbar-toggler-icon'></span>
         </button>
         <div class='collapse navbar-collapse' id='main-navbar'>
             <!-- Navbar left side -->
             <ul class='navbar-nav mr-auto'>
-                <li class='nav-item'>
-                    <a class='nav-link' href='index.html'><span class='oi oi-home'></span> Home</a>
-                </li>
                 <li class='nav-item active'>
                     <a class='nav-link' href='reactions.html'><span class='oi oi-headphones'></span> Reactions</a>
                 </li>
                 <li class='nav-item'>
-                    <a class='nav-link' href='streams.html'><span class='oi oi-monitor'></span> Streams</a>
+                    <a class='nav-link disabled' href='#'><span class='oi oi-monitor'></span> Streams</a>
                 </li>
                 <li class='nav-item'>
-                    <a class='nav-link' href='polls.html'><span class='oi oi-bar-chart'></span> Polls</a>
+                    <a class='nav-link disabled' href='#'><span class='oi oi-bar-chart'></span> Polls</a>
                 </li>
             </ul>
             <!-- Navbar right side -->
@@ -48,16 +45,57 @@
         </div>
     </nav>
 
+
     <div class='container'>
         <br>
-        <div id='videos'>
+        <!-- Button trigger modal -->
+        <button type='button' class='btn btn-outline-dark btn-lg btn-block' data-toggle='modal' data-target='#search-modal'>
+            Search Reactions
+        </button>
+        <br>
 
+        <!-- Modal -->
+        <div class='modal fade' id='search-modal' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+            <div class='modal-dialog' role='document'>
+                <div class='modal-content'>
+                    <div class='modal-header'>
+                        <h5 class='modal-title'>Search Reactions</h5>
+                        <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+                            <span aria-hidden='true'>&times;</span>
+                        </button>
+                    </div>
+                    <div class='modal-body'>
+                        <form>
+                            <div class='form-group'>
+                                <label for='artists'>Artist</label>
+                                <select class='form-control' id='artists'>
+                                    <!-- Inject artists via JS -->
+                                </select>
+                            </div>
+                            <div class='form-group'>
+                                <label for='video-tag'>Video Tag</label>
+                                <select class='form-control' id='video-tag'>
+                                    <!-- Inject tags via JS -->
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class='modal-footer'>
+                        <button type='button' id='search-reactions' class='btn btn-primary' data-dismiss='modal'>Submit</button>
+                        <button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <hr>
+        <div id='videos'>
+            <!-- Video cards to be inserted here via JS -->
+        </div>
     </div>
 
     <footer class='container'>
+        <hr>
         <p>Made by Ciarán Ingle</p>
     </footer>
 
