@@ -30,7 +30,7 @@ var youtubeCallback = function(data) {
         if (info.title.toLowerCase().includes('jinjer')) video.tags['Jinjer Friday'] = null;
         if (info.title.toLowerCase().includes('subscriber band')) video.tags['Subscriber Band Sunday'] = null;
 
-        pushReaction(info.resourceId.videoId, video); // Push video to database.
+        pushReaction('yt=' + info.resourceId.videoId, video); // Push video to database.
     }
 
     if (data.nextPageToken) {
@@ -99,33 +99,6 @@ function toUpperCamelCase(string) {
     return result;
 }
 
-/* ------ ADD A REACTION ------ */
-
-function pushReaction(id, video) {
-    console.log('Pushing video ' + id + ' to reactions.');
-    console.log(video);
-
-    db.collection('reactions').doc('id=' + id).set(video);
-}
-
-function addStreamableReaction(url, artist, song, date, tags) {
-    var id = url.split('streamable.com/')[1];
-
-    var url = 'https://api.streamable.com/videos/' + id;
-    $.getJSON(url, function(data) {
-        var video = {
-            url: 'https://' + data.url,
-            artist: artist,
-            song: song,
-            date: date,
-            tags: tags,
-            thumbnail: 'https:' + data.thumbnail_url.split('?')[0] + '?height=400'
-        }
-
-        pushReaction(id, video);
-    });
-}
-
 function getYoutubeInfo(url, fieldIds) {
     var id = url.split('youtu.be/')[1];
 
@@ -155,6 +128,15 @@ function getYoutubeInfo(url, fieldIds) {
     });
 }
 
+/* ------ ADD A REACTION ------ */
+
+function pushReaction(id, video) {
+    console.log('Pushing video ' + id + ' to reactions.');
+    console.log(video);
+
+    db.collection('reactions').doc(id).set(video);
+}
+
 $('#button-get-youtube-reaction-info').click(function() {
     var url = $('#input-add-youtube-reaction-url').val();
     console.log(url);
@@ -163,6 +145,17 @@ $('#button-get-youtube-reaction-info').click(function() {
         song: '#input-add-youtube-reaction-song',
         date: '#input-add-youtube-reaction-date',
         thumbnail: '#input-add-youtube-reaction-thumbnail'
+    }
+    getYoutubeInfo(url, fields);
+});
+
+$('#button-get-youtube-stream-info').click(function() {
+    var url = $('#input-add-youtube-stream-url').val();
+    console.log(url);
+    var fields = {
+        title: '#input-add-youtube-stream-title',
+        date: '#input-add-youtube-stream-date',
+        thumbnail: '#input-add-youtube-stream-thumbnail'
     }
     getYoutubeInfo(url, fields);
 });
@@ -181,11 +174,143 @@ $('#button-push-youtube-reaction').click(function() {
     var tags = $('#input-add-youtube-reaction-tags').val().split(',');
     for (var i = 0; i < tags.length; i++) {
         var tag = tags[i].trim();
-        video.tags[tag] = null;
+        if (tag) {
+            video.tags[tag] = null;
+        }
     }
 
-    pushReaction(id, video);
+    pushReaction('yt=' + id, video);
 });
+
+$('#button-push-streamable-reaction').click(function() {
+    var video = {
+        artist: $('#input-add-streamable-reaction-artist').val(),
+        song: $('#input-add-streamable-reaction-song').val(),
+        date: $('#input-add-streamable-reaction-date').val(),
+        tags: {}
+    };
+
+    var id = $('#input-add-streamable-reaction-url').val().split('streamable.com/')[1];
+
+    var tags = $('#input-add-streamable-reaction-tags').val().split(',');
+    for (var i = 0; i < tags.length; i++) {
+        var tag = tags[i].trim();
+        if (tag) {
+            video.tags[tag] = null;
+        }
+    }
+
+    var url = 'https://api.streamable.com/videos/' + id;
+    $.getJSON(url, function(data) {
+        video.url = 'https://' + data.url;
+        video.thumbnail = 'https:' + data.thumbnail_url.split('?')[0] + '?height=400';
+
+        pushReaction('st=' + id, video);
+    });
+});
+
+$('#button-push-facebook-reaction').click(function() {
+    var video = {
+        url: $('#input-add-facebook-reaction-url').val(),
+        artist: $('#input-add-facebook-reaction-artist').val(),
+        song: $('#input-add-facebook-reaction-song').val(),
+        date: $('#input-add-facebook-reaction-date').val(),
+        tags: {}
+    };
+
+    var id = $('#input-add-facebook-reaction-url').val().split('videos/')[1].split('/')[0];
+
+    var tags = $('#input-add-facebook-reaction-tags').val().split(',');
+    for (var i = 0; i < tags.length; i++) {
+        var tag = tags[i].trim();
+        if (tag) {
+            video.tags[tag] = null;
+        }
+    }
+
+    pushReaction('fb=' + id, video);
+});
+
+/* ------ ADD STREAM ------ */
+
+function pushStream(id, video) {
+    console.log('Pushing video ' + id + ' to streams.');
+    console.log(video);
+
+    db.collection('streams').doc(id).set(video);
+}
+
+$('#button-push-youtube-stream').click(function() {
+    var video = {
+        title: $('#input-add-youtube-stream-title').val(),
+        description: $('#input-add-youtube-stream-description').val(),
+        date: $('#input-add-youtube-stream-date').val(),
+        thumbnail: $('#input-add-youtube-stream-thumbnail').val(),
+        tags: {}
+    };
+
+    var id = $('#input-add-youtube-stream-url').val().split('youtu.be/')[1];
+
+    var tags = $('#input-add-youtube-stream-tags').val().split(',');
+    for (var i = 0; i < tags.length; i++) {
+        var tag = tags[i].trim();
+        if (tag) {
+            video.tags[tag] = null;
+        }
+    }
+
+    pushStream('yt=' + id, video);
+});
+
+$('#button-push-streamable-stream').click(function() {
+    var video = {
+        title: $('#input-add-streamable-stream-title').val(),
+        description: $('#input-add-streamable-stream-description').val(),
+        date: $('#input-add-streamable-stream-date').val(),
+        tags: {}
+    };
+
+    var id = $('#input-add-streamable-stream-url').val().split('streamable.com/')[1];
+
+    var tags = $('#input-add-streamable-stream-tags').val().split(',');
+    for (var i = 0; i < tags.length; i++) {
+        var tag = tags[i].trim();
+        if (tag) {
+            video.tags[tag] = null;
+        }
+    }
+
+    var url = 'https://api.streamable.com/videos/' + id;
+    $.getJSON(url, function(data) {
+        video.url = 'https://' + data.url;
+        video.thumbnail = 'https:' + data.thumbnail_url.split('?')[0] + '?height=400';
+
+        pushStream('st=' + id, video);
+    });
+});
+
+$('#button-push-facebook-stream').click(function() {
+    var video = {
+        url: $('#input-add-facebook-stream-url').val(),
+        title: $('#input-add-facebook-stream-title').val(),
+        description: $('#input-add-facebook-stream-description').val(),
+        date: $('#input-add-facebook-stream-date').val(),
+        tags: {}
+    };
+
+    var id = $('#input-add-facebook-stream-url').val().split('videos/')[1].split('/')[0];
+
+    var tags = $('#input-add-facebook-stream-tags').val().split(',');
+    for (var i = 0; i < tags.length; i++) {
+        var tag = tags[i].trim();
+        if (tag) {
+            video.tags[tag] = null;
+        }
+    }
+
+    pushStream('fb=' + id, video);
+});
+
 
 /* ------ END ------ */
 

@@ -7,23 +7,48 @@
     <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' integrity='sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm' crossorigin='anonymous'>
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.css' integrity='sha256-CNwnGWPO03a1kOlAsGaH5g8P3dFaqFqqGFV/1nkX5OU=' crossorigin='anonymous'>
 
-    <title>MYFH Crew</title>
+    <title>MYFH Crew - Admin Area</title>
 </head>
 <body>
     <div class='container'>
-        <h1>Welcome to the admin area</h1>
+        <h1>Welcome to the Admin Area</h1>
 
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-add-youtube-reaction">
-            Add a YouTube Reaction
-        </button>
+        <div class='card'>
+            <div class='card-body'>
+                <h3>Add a Reaction</h3>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-add-youtube-reaction">
+                    Add a YouTube Reaction
+                </button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-add-streamable-reaction">
+                    Add a Streamable Reaction
+                </button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-add-facebook-reaction">
+                    Add a Facebook Reaction
+                </button>
+            </div>
+        </div>
+        <br>
+        <div class='card'>
+            <div class='card-body'>
+                <h3>Add a Stream</h3>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-add-youtube-stream">
+                    Add a YouTube Stream
+                </button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-add-streamable-stream">
+                    Add a Streamable Stream
+                </button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-add-facebook-stream">
+                    Add a Facebook Stream
+                </button>
+            </div>
+        </div>
 
-        <!-- Modal -->
+        <!-- Add YouTube Reaction Modal -->
         <div class="modal fade" id="modal-add-youtube-reaction" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Add a YouTube Reaction</h5>
+                        <h5 class="modal-title">Add a YouTube Reaction</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                         </button>
@@ -32,7 +57,6 @@
                         <form>
                             <div class="form-group">
                                 <label for="input-add-youtube-reaction-url">Youtube URL (Must be the shortened version)</label>
-
                                 <div class="input-group mb-3">
                                     <input type="text" class="form-control" id="input-add-youtube-reaction-url" placeholder="https://youtu.be/unique-id">
                                     <div class="input-group-append">
@@ -69,6 +93,228 @@
                 </div>
             </div>
         </div>
+
+        <!-- Add Streamable Reaction Modal -->
+        <div class="modal fade" id="modal-add-streamable-reaction" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add a Streamable Reaction</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="input-add-streamable-reaction-url">Streamable URL</label>
+                                <input type="text" class="form-control" id="input-add-streamable-reaction-url" placeholder="https://streamable.com/unique-id">
+                            </div>
+                            <div class="form-group">
+                                <label for="input-add-streamable-reaction-artist">Artist</label>
+                                <input type="text" class="form-control" id="input-add-streamable-reaction-artist">
+                            </div>
+                            <div class="form-group">
+                                <label for="input-add-streamable-reaction-song">Song</label>
+                                <input type="text" class="form-control" id="input-add-streamable-reaction-song">
+                            </div>
+                            <div class="form-group">
+                                <label for="input-add-streamable-reaction-date">Date</label>
+                                <input type="text" class="form-control" id="input-add-streamable-reaction-date" placeholder="YYYY-MM-DD">
+                            </div>
+                            <div class="form-group">
+                                <label for="input-add-streamable-reaction-tags">Tags</label>
+                                <input type="text" class="form-control" id="input-add-streamable-reaction-tags" placeholder='Jinjer Friday, Live, Triple Reaction'>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button id='button-push-streamable-reaction' type="button" class="btn btn-primary">Add to Database</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Facebook Reaction Modal -->
+        <div class="modal fade" id="modal-add-facebook-reaction" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add a Facebook Reaction</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="input-add-facebook-reaction-url">Facebook URL</label>
+                                <input type="text" class="form-control" id="input-add-facebook-reaction-url" placeholder="https://facebook.com/user-id/videos/unique-id">
+                            </div>
+                            <div class="form-group">
+                                <label for="input-add-facebook-reaction-artist">Artist</label>
+                                <input type="text" class="form-control" id="input-add-facebook-reaction-artist">
+                            </div>
+                            <div class="form-group">
+                                <label for="input-add-facebook-reaction-song">Song</label>
+                                <input type="text" class="form-control" id="input-add-facebook-reaction-song">
+                            </div>
+                            <div class="form-group">
+                                <label for="input-add-facebook-reaction-date">Date</label>
+                                <input type="text" class="form-control" id="input-add-facebook-reaction-date" placeholder="YYYY-MM-DD">
+                            </div>
+                            <div class="form-group">
+                                <label for="input-add-facebook-reaction-tags">Tags</label>
+                                <input type="text" class="form-control" id="input-add-facebook-reaction-tags" placeholder='Jinjer Friday, Live, Triple Reaction'>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button id='button-push-facebook-reaction' type="button" class="btn btn-primary">Add to Database</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add YouTube Stream Modal -->
+        <div class="modal fade" id="modal-add-youtube-stream" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add a YouTube Stream</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="input-add-youtube-stream-url">Youtube URL (Must be the shortened version)</label>
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" id="input-add-youtube-stream-url" placeholder="https://youtu.be/unique-id">
+                                    <div class="input-group-append">
+                                        <button id='button-get-youtube-stream-info' class="btn btn-outline-secondary" type="button">Autofill Data</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="input-add-youtube-stream-title">Title</label>
+                                <input type="text" class="form-control" id="input-add-youtube-stream-title">
+                            </div>
+                            <div class="form-group">
+                                <label for="input-add-youtube-stream-description">Description</label>
+                                <input type="text" class="form-control" id="input-add-youtube-stream-description">
+                            </div>
+                            <div class="form-group">
+                                <label for="input-add-youtube-stream-date">Date</label>
+                                <input type="text" class="form-control" id="input-add-youtube-stream-date" placeholder="YYYY-MM-DD">
+                            </div>
+                            <div class="form-group">
+                                <label for="input-add-youtube-stream-thumbnail">Thumbnail</label>
+                                <input type="text" class="form-control" id="input-add-youtube-stream-thumbnail">
+                            </div>
+                            <div class="form-group">
+                                <label for="input-add-youtube-stream-tags">Tags</label>
+                                <input type="text" class="form-control" id="input-add-youtube-stream-tags" placeholder='Album Stream, Announcement'>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button id='button-push-youtube-stream' type="button" class="btn btn-primary">Add to Database</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Streamable Stream Modal -->
+        <div class="modal fade" id="modal-add-streamable-stream" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add a Streamable Stream</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="input-add-streamable-stream-url">Streamable URL</label>
+                                <input type="text" class="form-control" id="input-add-streamable-stream-url" placeholder="https://streamable.com/unique-id">
+                            </div>
+                            <div class="form-group">
+                                <label for="input-add-streamable-stream-title">Title</label>
+                                <input type="text" class="form-control" id="input-add-streamable-stream-title">
+                            </div>
+                            <div class="form-group">
+                                <label for="input-add-streamable-stream-description">Description</label>
+                                <input type="text" class="form-control" id="input-add-streamable-stream-description">
+                            </div>
+                            <div class="form-group">
+                                <label for="input-add-streamable-stream-date">Date</label>
+                                <input type="text" class="form-control" id="input-add-streamable-stream-date" placeholder="YYYY-MM-DD">
+                            </div>
+                            <div class="form-group">
+                                <label for="input-add-streamable-stream-tags">Tags</label>
+                                <input type="text" class="form-control" id="input-add-streamable-stream-tags" placeholder='Album Stream, Announcement'>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button id='button-push-streamable-stream' type="button" class="btn btn-primary">Add to Database</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Facebook STREAM Modal -->
+        <div class="modal fade" id="modal-add-facebook-stream" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add a Facebook Stream</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="input-add-facebook-stream-url">Facebook URL</label>
+                                <input type="text" class="form-control" id="input-add-facebook-stream-url" placeholder="https://facebook.com/user-id/videos/unique-id">
+                            </div>
+                            <div class="form-group">
+                                <label for="input-add-facebook-stream-title">Title</label>
+                                <input type="text" class="form-control" id="input-add-facebook-stream-title">
+                            </div>
+                            <div class="form-group">
+                                <label for="input-add-facebook-stream-description">Description</label>
+                                <input type="text" class="form-control" id="input-add-facebook-stream-description">
+                            </div>
+                            <div class="form-group">
+                                <label for="input-add-facebook-stream-date">Date</label>
+                                <input type="text" class="form-control" id="input-add-facebook-stream-date" placeholder="YYYY-MM-DD">
+                            </div>
+                            <div class="form-group">
+                                <label for="input-add-facebook-stream-tags">Tags</label>
+                                <input type="text" class="form-control" id="input-add-facebook-stream-tags" placeholder='Album Stream, Announcement'>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button id='button-push-facebook-stream' type="button" class="btn btn-primary">Add to Database</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
     </div>
 
     <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>

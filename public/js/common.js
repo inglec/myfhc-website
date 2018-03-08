@@ -1,4 +1,10 @@
 function createCard(title, content, image, link) {
+    if (!image) {
+        if (link.includes('facebook'))
+            image = 'images/facebook.png';
+        else console.log('Thumbnail error for ' + link);
+    }
+
     var html = '';
     html += '<div class="col mb-3" align="center">';
     html += '<div class="card video-card">';
