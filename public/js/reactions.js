@@ -1,102 +1,69 @@
 const db = firebase.firestore();
 
 var lastRef;
-var reactionsHtml; // Store html for all reactions loaded.
+var reactionsHtml = ''; // Store html for all reactions loaded.
 
-var artistsPopulated = false;
-var tagsPopulated = false;
+var searchOptionsPopulated = false;
 
 window.onload = populateReactions();
 
 function populateReactions() {
-    var ref = db.collection('reactions')
-        .orderBy('date', 'desc')
-        .limit(30);
+    var ref;
+
+    if (lastRef) {
+        ref = db.collection('reactions')
+            .orderBy('date', 'desc')
+            .startAfter(lastRef)
+            .limit(30);
+    }
+    else {
+        ref = db.collection('reactions')
+            .orderBy('date', 'desc')
+            .limit(30);
+    }
+
 
     ref.get().then(function(snapshot) {
         lastRef = snapshot.docs[snapshot.docs.length-1]; // Remember ref for pagination.
 
-        reactionsHtml = '';
+        if (!lastRef) $('#more-videos-button').hide();
+        else $('#more-videos-button').show();
+
         snapshot.forEach(function(doc) {
             var video = doc.data();
             reactionsHtml += createCard(video.artist, video.song, video.thumbnail, video.url); // common.js
         });
         $('#video-cards').html(reactionsHtml); // Populate video grid.
-
-        $('#more-videos-button').show();
     });
 }
 
-function populateNextReactions() {
-    var ref = db.collection('reactions')
-        .orderBy('date', 'desc')
-        .startAfter(lastRef)
-        .limit(30);
-    ref.get().then(function(snapshot) {
-        lastRef = snapshot.docs[snapshot.docs.length-1];
-
-        snapshot.forEach(function(doc) {
-            var video = doc.data();
-            reactionsHtml += createCard(video.artist, video.song, video.thumbnail, video.url); // common.js
-        });
-        $('#video-cards').html(reactionsHtml); // Append to video grid.
-    });
-}
-
-function populateTags() {
-    if (!tagsPopulated) {
-        tagsPopulated = true;
-
-        var ref = db.collection('schema').doc('reactions');
-        ref.get().then(function(doc) {
-            if (doc.exists) {
-                var html = createTagOptions(doc.data().tags);
-                $('#video-tag').html(html); // Populate video tag fields.
-            }
-            else console.log('Schema does not exist!');
-        });
-    }
-}
-
-function populateArtists() {
-    if (!artistsPopulated) {
-        artistsPopulated = true;
+function populateSearchOptions() {
+    if (!searchOptionsPopulated) {
+        searchOptionsPopulated = true;
 
         var ref = db.collection('reactions');
         ref.get().then(function(snapshot) {
             var artists = {};
+            var tags = {};
             snapshot.forEach(function(doc) {
-                var artist = doc.data().artist;
-                if (artist) {
-                    artists[artist] = true;
+                var video = doc.data();
+                if (video.artist) {
+                    artists[video.artist] = true;
+                }
+                var keys = Object.keys(video.tags);
+                for (var i = 0; i < keys.length; i++) {
+                    var tag = keys[i];
+                    tags[tag] = true;
                 }
             });
-            $('#artists').html(getArtistsOptions(artists)); // Populate artists in search modal.
+            $('#artists').append(getOptions(artists)); // Populate artists in search modal.
+            $('#tags').append(getOptions(tags));
         });
     }
 }
 
-function getArtistsOptions(artists) {
-    artists = Object.keys(artists).sort();
-
-    var html = '<option value="all">All</option>';
-    for (var i = 0; i < artists.length; i++) {
-        html += '<option>' + artists[i] + '</option>';
-    }
-    return html;
-}
-
-function createTagOptions(tags) {
-    var html = '<option value="all">All</option>';
-    for (var i = 0; i < tags.length; i++) {
-        html += '<option>' + tags[i] + '</option>';
-    }
-    return html;
-}
-
 $('#show-modal').click(function() {
-    populateTags();
-    populateArtists();
+    populateSearchOptions();
 })
 
 $('#search-reactions').click(function() {
@@ -106,8 +73,8 @@ $('#search-reactions').click(function() {
     if (!$('#artists').find(':selected').attr('value'))
         var artist = $('#artists').find(':selected').text();
 
-    if (!$('#video-tag').find(':selected').attr('value'))
-        var tag = $('#video-tag').find(':selected').text();
+    if (!$('#tags').find(':selected').attr('value'))
+        var tag = $('#tags').find(':selected').text();
 
     if (artist || tag) {
         // Get firestore reference to database for search query.
@@ -126,6 +93,6 @@ $('#search-reactions').click(function() {
     }
     else {
         $('#video-cards').html(reactionsHtml);
-        $('#more-videos-button').show();
+        if (lastRef) $('#more-videos-button').show();
     }
 });

@@ -15,13 +15,16 @@
 
     <!-- Navbar -->
     <nav class='navbar navbar-expand-lg navbar-dark bg-dark'>
-        <a class='navbar-brand' href='index.html'><span class="oi oi-home"></span> MYFH Crew</a>
+        <a class='navbar-brand' href='#'>MYFH Crew</a>
         <button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#main-navbar' aria-controls='main-navbar' aria-expanded='false' aria-label='Toggle navigation'>
             <span class='navbar-toggler-icon'></span>
         </button>
         <div class='collapse navbar-collapse' id='main-navbar'>
             <!-- Navbar left side -->
             <ul class='navbar-nav mr-auto'>
+                <li class='nav-item'>
+                    <a class='nav-link' href='index.html'><span class="oi oi-home"></span> Home</a>
+                </li>
                 <li class='nav-item active'>
                     <a class='nav-link' href='reactions.html'><span class='oi oi-headphones'></span> Reactions</a>
                 </li>
@@ -29,19 +32,19 @@
                     <a class='nav-link' href='streams.html'><span class='oi oi-monitor'></span> Streams</a>
                 </li>
                 <li class='nav-item'>
-                    <a class='nav-link disabled' href='#'><span class='oi oi-bar-chart'></span> Polls</a>
+                    <a class='nav-link' href='polls.html'><span class='oi oi-bar-chart'></span> Polls</a>
                 </li>
             </ul>
             <!-- Navbar right side -->
             <ul class='navbar-nav'>
                 <li class='nav-item'>
-                    <a class='nav-link' href='https://www.youtube.com/channel/UCqAnBlp5RrpzoNLXHf6XUsA'><span class='oi oi-video'></span> YouTube</a>
+                    <a class='nav-link' href='https://www.youtube.com/channel/UCqAnBlp5RrpzoNLXHf6XUsA' target="_blank"><span class='oi oi-video'></span> YouTube</a>
                 </li>
                 <li class='nav-item'>
-                    <a class='nav-link' href='https://www.facebook.com/groups/117174478997327'><span class='oi oi-people'></span> Facebook Group</a>
+                    <a class='nav-link' href='https://www.facebook.com/groups/117174478997327' target="_blank"><span class='oi oi-people'></span> Facebook Group</a>
                 </li>
                 <li class='nav-item'>
-                    <a class='nav-link' href='https://shop.spreadshirt.co.uk/truantreacts/'><span class='oi oi-cart'></span> Merch Store</a>
+                    <a class='nav-link' href='https://shop.spreadshirt.co.uk/truantreacts/' target="_blank"><span class='oi oi-cart'></span> Merch Store</a>
                 </li>
             </ul>
         </div>
@@ -71,14 +74,14 @@
                             <div class='form-group'>
                                 <label for='artists'>Artist</label>
                                 <select class='form-control' id='artists'>
-                                    <option>All</option>
+                                    <option value='all'>All</option>
                                     <!-- Inject artists via JS -->
                                 </select>
                             </div>
                             <div class='form-group'>
-                                <label for='video-tag'>Video Tag</label>
-                                <select class='form-control' id='video-tag'>
-                                    <option>All</option>
+                                <label for='tags'>Video Tag</label>
+                                <select class='form-control' id='tags'>
+                                    <option value='all'>All</option>
                                     <!-- Inject tags via JS -->
                                 </select>
                             </div>
@@ -104,7 +107,7 @@
             </div>
         </div>
 
-        <button id='more-videos-button' onclick='populateNextReactions()' type='button' class='btn btn-outline-dark btn-lg btn-block' style='display: none;'>
+        <button id='more-videos-button' onclick='populateReactions()' type='button' class='btn btn-outline-dark btn-lg btn-block' style='display: none;'>
             More Reactions
         </button>
     </div>

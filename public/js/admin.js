@@ -1,3 +1,26 @@
+window.onload = function() {
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+            $('#signed-out').hide();
+            $('#signed-in').show();
+        }
+        else {
+            $('#signed-in').hide();
+            $('#signed-out').show();
+        }
+    }, function(error) {
+        console.log(error);
+    });
+};
+
+function signOut() {
+    firebase.auth().signOut().then(function() {
+        console.log('Signed Out');
+    }, function(error) {
+        console.error('Sign Out Error', error);
+    });
+}
+
 const uploadsID = 'UUqAnBlp5RrpzoNLXHf6XUsA'; // Truant Channel Uploads ID
 const youtubeAPIKey = 'AIzaSyBX-qSUESi7msVWH8UTmzDoBMQZObY3Uwo';
 
@@ -162,6 +185,7 @@ $('#button-get-youtube-stream-info').click(function() {
 
 $('#button-push-youtube-reaction').click(function() {
     var video = {
+        url: $('#input-add-youtube-reaction-url').val(),
         artist: $('#input-add-youtube-reaction-artist').val(),
         song: $('#input-add-youtube-reaction-song').val(),
         date: $('#input-add-youtube-reaction-date').val(),
@@ -242,6 +266,7 @@ function pushStream(id, video) {
 
 $('#button-push-youtube-stream').click(function() {
     var video = {
+        url: $('#input-add-youtube-stream-url').val(),
         title: $('#input-add-youtube-stream-title').val(),
         description: $('#input-add-youtube-stream-description').val(),
         date: $('#input-add-youtube-stream-date').val(),
@@ -314,10 +339,30 @@ $('#button-push-facebook-stream').click(function() {
 
 /* ------ END ------ */
 
-function signOut() {
-    firebase.auth().signOut().then(function() {
-        console.log('Signed Out');
-    }, function(error) {
-        console.error('Sign Out Error', error);
-    });
+function injectTimestamp(id) {
+    $(id).val(new Date().toISOString());
 }
+
+$('#button-push-post').click(function() {
+    var post = {
+        title: $('#input-add-post-title').val(),
+        date: $('#input-add-post-date').val(),
+        content: $('#input-add-post-content').val(),
+    };
+
+    console.log(post);
+    db.collection('posts').doc(post.date).set(post);
+});
+
+$('#button-push-poll').click(function() {
+    var poll = {
+        url: $('#input-add-poll-url').val(),
+        title: $('#input-add-poll-title').val(),
+        date: $('#input-add-poll-date').val(),
+        endDate: $('#input-add-poll-end-date').val(),
+        description: $('#input-add-poll-description').val()
+    };
+
+    console.log(poll);
+    db.collection('polls').doc(poll.date).set(poll);
+});

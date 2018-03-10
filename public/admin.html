@@ -10,8 +10,16 @@
     <title>MYFH Crew - Admin Area</title>
 </head>
 <body>
-    <div class='container'>
+    <div id='signed-out' class='container' style='display: none;'>
+        <h1>Signed Out</h1>
+        <a href="login.html" class="btn btn-primary btn-lg btn-block" role="button" aria-disabled="true">Log In</a>
+        <a href="index.html" class="btn btn-dark btn-lg btn-block" role="button" aria-disabled="true">Back to Site</a>
+    </div>
+    <div id='signed-in' class='container' style='display: none;'>
         <h1>Welcome to the Admin Area</h1>
+        <a href="https://console.firebase.google.com/" target="_blank" class="btn btn-link btn-lg btn-block" role="button" aria-disabled="true">
+            Open Firebase Console
+        </a>
 
         <div class='card'>
             <div class='card-body'>
@@ -40,6 +48,110 @@
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-add-facebook-stream">
                     Add a Facebook Stream
                 </button>
+            </div>
+        </div>
+        <br>
+        <div class='card'>
+            <div class='card-body'>
+                <h3>Add a Post</h3>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-add-post">
+                    Add a New Post
+                </button>
+            </div>
+        </div>
+        <br>
+        <div class='card'>
+            <div class='card-body'>
+                <h3>Add a Poll</h3>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-add-poll">
+                    Add a New Poll
+                </button>
+            </div>
+        </div>
+        <br>
+        <a href="index.html" class="btn btn-dark btn-lg btn-block" role="button" aria-disabled="true">
+            Back to Site
+        </a>
+        <br>
+        <button type='button' class="btn btn-danger btn-lg btn-block" onclick='signOut()'>
+            Sign Out
+        </button>
+        <br>
+        <div class="card">
+            <div class='card-body'>
+                <h3>Adding a YouTube Video</h3>
+                <p class="card-text">Click 'Share' and copy the link of the form:</p>
+                <pre class="card-text">https://youtu.be/unique-id</pre>
+                <img class="card-img-top" src="https://i.imgur.com/xrgLlNJ.png"></img>
+            </div>
+        </div>
+        <br>
+        <div class="card">
+            <div class='card-body'>
+                <h3>Adding a Streamable Video</h3>
+                <p class="card-text">Copy the URL from your browser of the form:</p>
+                <pre class="card-text">https://www.streamable.com/unique-id</pre>
+            </div>
+        </div>
+        <br>
+        <div class="card">
+            <div class='card-body'>
+                <h3>Adding a Facebook Video</h3>
+                <p class="card-text">Right click on the video while it's playing, and select 'Show video URL'. Copy this link.</p>
+                <img class="card-img-top" src="https://i.imgur.com/3T7xb0M.png"></img>
+            </div>
+        </div>
+        <br>
+        <div class="card">
+            <div class='card-body'>
+                <h3>Adding a Facebook Poll</h3>
+                <p class="card-text">Click on the timestamp of the post. When you are re-directed to the poll, copy the URL from your browser.</p>
+                <img class="card-img-top" src="https://i.imgur.com/nJ5jPo6.png"></img>
+            </div>
+        </div>
+        <br>
+        <div class="card">
+            <div class='card-body'>
+                <h3>Adding a Post</h3>
+                <p class="card-text">You must use HTML for posts. You can use <a href="https://wordtohtml.net/" target="_blank">this website</a> to create a HTML post from normal text.</p>
+                <p class="card-text">HTML looks like the following:</p>
+                <pre class="card-text">
+                    &lt;h1&gt;This is a heading&lt;/h1&gt;
+                    &lt;p&gt;This is a paragraph&lt;/p&gt;
+                    &lt;p&gt;This is another paragraph&lt;/p&gt;
+                </pre>
+            </div>
+        </div>
+        <br>
+        <div class="card">
+            <div class='card-body'>
+                <h3>Editing the Database</h3>
+                <p class="card-text">1) If there is an error in a video or post, you can go to <a href="https://console.firebase.google.com/" target="_blank">the Firebase console</a>.</p>
+                <img class="card-img-top" src="https://i.imgur.com/mbCnWYp.png"></img>
+                <hr>
+                <p class="card-text">2) Select the "MYFH Crew" project, and then the "Database" tab on the left hand side of the page.</p>
+                <img class="card-img-top" src="https://i.imgur.com/KzkfVk9.png"></img>
+                <hr>
+                <p class="card-text">3) Make sure that the database selected is the "Cloud Firestore" database.</p>
+                <img class="card-img-top" src="https://i.imgur.com/k3BGZl6.png"></img>
+                <hr>
+                <p class="card-text">4) Go to the relevant table, and find the entry you want to edit.</p>
+                <p class="card-text">You can find out the unique ID of a video from its URL.</p>
+                <p class="card-text">For YouTube videos, their entry will be called:</p>
+                <pre class="card-text">yt=unique-id</pre>
+                <p class="card-text">For Streamable videos:</p>
+                <pre class="card-text">st=unique-id</pre>
+                <p class="card-text">For Facebook videos:</p>
+                <pre class="card-text">fb=unique-id</pre>
+                <p class="card-text">For Facebook polls:</p>
+                <pre class="card-text">timestamp-of-poll</pre>
+                <p class="card-text">For posts:</p>
+                <pre class="card-text">timestamp-of-post</pre>
+                <img class="card-img-top" src="https://i.imgur.com/eGAQzHx.png"></img>
+                <hr>
+                <p class="card-text">To add a tag, click the "+ Add Field" symbol beside the tags entry.</p>
+                <p class="card-text">Name the tag, and set the "Type" to "null".</p>
+                <img class="card-img-top" src="https://i.imgur.com/nNfQNnw.png"></img>
             </div>
         </div>
 
@@ -88,7 +200,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button id='button-push-youtube-reaction' type="button" class="btn btn-primary">Add to Database</button>
+                        <button id='button-push-youtube-reaction' type="button" class="btn btn-primary" data-dismiss="modal">Add to Database</button>
                     </div>
                 </div>
             </div>
@@ -120,7 +232,12 @@
                             </div>
                             <div class="form-group">
                                 <label for="input-add-streamable-reaction-date">Date</label>
-                                <input type="text" class="form-control" id="input-add-streamable-reaction-date" placeholder="YYYY-MM-DD">
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" id="input-add-streamable-reaction-date" placeholder="YYYY-MM-DD">
+                                    <div class="input-group-append">
+                                        <button id='get-current-timestamp' class="btn btn-outline-secondary" type="button" onclick='injectTimestamp("#input-add-streamable-reaction-date")'>Get Date</button>
+                                    </div>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label for="input-add-streamable-reaction-tags">Tags</label>
@@ -130,7 +247,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button id='button-push-streamable-reaction' type="button" class="btn btn-primary">Add to Database</button>
+                        <button id='button-push-streamable-reaction' type="button" class="btn btn-primary" data-dismiss="modal">Add to Database</button>
                     </div>
                 </div>
             </div>
@@ -162,7 +279,12 @@
                             </div>
                             <div class="form-group">
                                 <label for="input-add-facebook-reaction-date">Date</label>
-                                <input type="text" class="form-control" id="input-add-facebook-reaction-date" placeholder="YYYY-MM-DD">
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" id="input-add-facebook-reaction-date" placeholder="YYYY-MM-DD">
+                                    <div class="input-group-append">
+                                        <button id='get-current-timestamp' class="btn btn-outline-secondary" type="button" onclick='injectTimestamp("#input-add-facebook-reaction-date")'>Get Date</button>
+                                    </div>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label for="input-add-facebook-reaction-tags">Tags</label>
@@ -172,7 +294,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button id='button-push-facebook-reaction' type="button" class="btn btn-primary">Add to Database</button>
+                        <button id='button-push-facebook-reaction' type="button" class="btn btn-primary" data-dismiss="modal">Add to Database</button>
                     </div>
                 </div>
             </div>
@@ -223,7 +345,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button id='button-push-youtube-stream' type="button" class="btn btn-primary">Add to Database</button>
+                        <button id='button-push-youtube-stream' type="button" class="btn btn-primary" data-dismiss="modal">Add to Database</button>
                     </div>
                 </div>
             </div>
@@ -255,7 +377,12 @@
                             </div>
                             <div class="form-group">
                                 <label for="input-add-streamable-stream-date">Date</label>
-                                <input type="text" class="form-control" id="input-add-streamable-stream-date" placeholder="YYYY-MM-DD">
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" id="input-add-streamable-stream-date" placeholder="YYYY-MM-DD">
+                                    <div class="input-group-append">
+                                        <button id='get-current-timestamp' class="btn btn-outline-secondary" type="button" onclick='injectTimestamp("#input-add-streamable-stream-date")'>Get Date</button>
+                                    </div>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label for="input-add-streamable-stream-tags">Tags</label>
@@ -265,13 +392,13 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button id='button-push-streamable-stream' type="button" class="btn btn-primary">Add to Database</button>
+                        <button id='button-push-streamable-stream' type="button" class="btn btn-primary" data-dismiss="modal">Add to Database</button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Add Facebook STREAM Modal -->
+        <!-- Add Facebook Stream Modal -->
         <div class="modal fade" id="modal-add-facebook-stream" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -297,7 +424,12 @@
                             </div>
                             <div class="form-group">
                                 <label for="input-add-facebook-stream-date">Date</label>
-                                <input type="text" class="form-control" id="input-add-facebook-stream-date" placeholder="YYYY-MM-DD">
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" id="input-add-facebook-stream-date" placeholder="YYYY-MM-DD">
+                                    <div class="input-group-append">
+                                        <button id='get-current-timestamp' class="btn btn-outline-secondary" type="button" onclick='injectTimestamp("#input-add-facebook-stream-date")'>Get Date</button>
+                                    </div>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label for="input-add-facebook-stream-tags">Tags</label>
@@ -307,42 +439,103 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button id='button-push-facebook-stream' type="button" class="btn btn-primary">Add to Database</button>
+                        <button id='button-push-facebook-stream' type="button" class="btn btn-primary" data-dismiss="modal">Add to Database</button>
                     </div>
                 </div>
             </div>
         </div>
 
+        <!-- Add New Post Modal -->
+        <div class="modal fade" id="modal-add-post" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add a New Post</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="input-add-post-title">Title</label>
+                                <input type="text" class="form-control" id="input-add-post-title">
+                            </div>
+                            <div class="form-group">
+                                <label for="input-add-post-date">Date</label>
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" id="input-add-post-date" placeholder="YYYY-MM-DD">
+                                    <div class="input-group-append">
+                                        <button id='get-current-timestamp' class="btn btn-outline-secondary" type="button" onclick='injectTimestamp("#input-add-post-date")'>Get Date</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="input-add-post-content">Content</label>
+                                <textarea class="form-control" rows="10" id="input-add-post-content" placeholder="Paste HTML here"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button id='button-push-post' type="button" class="btn btn-primary" data-dismiss="modal">Add to Database</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
+        <!-- Add New Poll Modal -->
+        <div class="modal fade" id="modal-add-poll" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add a New Poll</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="input-add-poll-url">URL</label>
+                                <input type="text" class="form-control" id="input-add-poll-url">
+                            </div>
+                            <div class="form-group">
+                                <label for="input-add-poll-title">Title</label>
+                                <input type="text" class="form-control" id="input-add-poll-title">
+                            </div>
+                            <div class="form-group">
+                                <label for="input-add-poll-description">Description</label>
+                                <textarea class="form-control" id="input-add-poll-description" rows="5"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="input-add-poll-date">Date</label>
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" id="input-add-poll-date" placeholder="YYYY-MM-DD">
+                                    <div class="input-group-append">
+                                        <button id='get-current-timestamp' class="btn btn-outline-secondary" type="button" onclick='injectTimestamp("#input-add-poll-date")'>Get Date</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="input-add-poll-end-date">End Date</label>
+                                <input type="text" class="form-control" id="input-add-poll-end-date" placeholder="YYYY-MM-DD">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button id='button-push-poll' type="button" class="btn btn-primary" data-dismiss="modal">Add to Database</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </div>
 
     <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.9.1/firebase-firestore.js"></script>
     <script src="js/firebase.js"></script>
-    <script>
-        initApp = function() {
-            firebase.auth().onAuthStateChanged(function(user) {
-                if (user) {
-                    // User is signed in.
-                    console.log('signed in');
-                    user.getIdToken().then(function(accessToken) {
-                        // TODO
-                    });
-                }
-                else {
-                    // User is signed out.
-                    console.log('signed out');
-                }
-            }, function(error) {
-                console.log(error);
-            });
-        };
-
-        window.addEventListener('load', function() {
-            initApp()
-        });
-    </script>
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js' integrity='sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q' crossorigin='anonymous'></script>
