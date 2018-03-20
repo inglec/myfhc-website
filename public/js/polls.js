@@ -31,10 +31,10 @@ function populatePolls() {
 
             pollsHtml += '<div class="card">';
             pollsHtml += '<div class="card-body">';
-            pollsHtml += '<h3 class="card-title">' + poll.title + '<span style="float: right"><font size="3">' + poll.date.split('T')[0] + '</font></span></h5>';
+            pollsHtml += '<h3 class="card-title">' + poll.title + '<span style="float: right"><font size="3">' + new Date(poll.date).toDateString() + '</font></span></h5>';
             pollsHtml += '<hr>';
             pollsHtml += '<p class="card-text">' + poll.description + '</p>'
-            pollsHtml += '<p class="card-text"><b>This poll closes at ' + poll.endDate.split('T')[0] + '.</b></p>'
+            pollsHtml += '<p class="card-text"><b>This poll closes on ' + new Date(poll.endDate).toDateString() + '.</b></p>'
             pollsHtml += '<hr>';
             pollsHtml += '<a href="' + poll.url + '" target="_blank">Click here to visit the poll.</a>';
             pollsHtml += '</div>';

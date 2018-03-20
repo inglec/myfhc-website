@@ -31,7 +31,7 @@ function populatePosts() {
 
             postsHtml += '<div class="card">';
             postsHtml += '<div class="card-body">';
-            postsHtml += '<h3 class="card-title">' + post.title + '<span style="float: right"><font size="3">' + post.date.split('T')[0] + '</font></span></h5>';
+            postsHtml += '<h3 class="card-title">' + post.title + '<span style="float: right"><font size="3">' + new Date(post.date).toDateString() + '</font></span></h5>';
             postsHtml += '<hr>';
             postsHtml += post.content;
             postsHtml += '</div>';
